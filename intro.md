@@ -63,18 +63,19 @@
 
 ----
 
-### TODO
+### Google Closure
 
-* Google Closure
-    * ClojureScript modules are Closure modules
-    * Compilation to JavaScript uses Closure Compiler
-        * Dead code elimination allows use of large libraries
+* ClojureScript modules are Closure modules
+* Compilation to JavaScript uses Closure Compiler
+    * Dead code elimination allows use of large libraries
+
+----
 
 ### React
 
 * Wide interest in ClojureScript community
-* Top down rendering works well with functions
-* Om, Reagent, 
+* Top down rendering well suited to a functional style
+* [Om](https://github.com/omcljs/om), [Reagent](http://reagent-project.github.io/), [Brutha](https://github.com/weavejester/brutha)
 
 ----
 
@@ -107,8 +108,6 @@
 * Widely used & mature with extensive plugin eco-system
 * Declarative
 
-----
-
 #### [Boot](http://boot-clj.com/)
 
 > Builds are programs. Let's start treating them that way.
@@ -127,5 +126,5 @@
 
 ## Thanks
 
-[https://twitter.com/_walkermatt](https://twitter.com/_walkermatt)
-[https://github.com/walkermatt](https://github.com/walkermatt)
+[twitter.com/_walkermatt](https://twitter.com/_walkermatt)
+[github.com/walkermatt](https://github.com/walkermatt)
