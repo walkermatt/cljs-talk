@@ -1,0 +1,258 @@
+<!DOCTYPE html><html><head><title></title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /><style type='text/css'>
+body {
+  font-family: 'Helvetica';
+  letter-spacing:-2px;
+  background:whitesmoke;
+  background-size:100%;
+  color:#333;
+  margin:0;
+  padding:0;
+  font-weight:bold;
+}
+
+h1, h2, h3, p {
+  margin:0;
+}
+
+em, a {
+  font-style:normal;
+  color:#666666;
+}
+
+a {
+  color:#0000FF;
+  text-decoration:none;
+}
+
+img {
+  width:100%;
+}
+
+div {
+  cursor:pointer;
+  cursor:hand;
+  position:absolute;
+  top:0px;
+  left:0px;
+  padding:75px;
+  /*line-height:97%;*/
+}
+
+div.center {
+  text-align:center;
+}
+
+div.imageText {
+  text-shadow:0px 0px 5px rgba(0,0,0,0.2);
+}
+
+blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+}
+
+.head {
+    text-align: right;
+}
+
+.foot {
+    font-size: 20px;
+    text-align: right;
+}
+
+code {
+    color: #666666;
+    background-color: rgb(253, 253, 196);
+}
+
+</style><script type='text/javascript'>
+window.onload = function() {
+    var s = document.getElementsByTagName('div'), ti;
+    if (!s) return;
+    big = { current: 0, forward: fwd, reverse: rev, go: go, length: s.length };
+    function go(n) {
+        big.current = n;
+        var i = 100, e = s[n], t = parseInt(e.dataset.timeToNext || 0, 10);
+        document.body.className = e.dataset.bodyclass || '';
+        for (var k = 0; k < s.length; k++) s[k].style.display = 'none';
+        e.style.display = 'inline';
+        e.style.fontSize = i + 'px';
+        if (e.firstChild && e.firstChild.nodeName === 'IMG') {
+            document.body.style.backgroundImage = 'url("' + e.firstChild.src + '")';
+            e.firstChild.style.display = 'none';
+            if ('classList' in e) e.classList.add('imageText');
+        } else {
+            document.body.style.backgroundImage = '';
+            document.body.style.backgroundColor = e.style.backgroundColor;
+        }
+        if (ti !== undefined) window.clearInterval(ti);
+        if (t > 0) ti = window.setTimeout(fwd, (t * 1000));
+        while ((e.offsetWidth > window.innerWidth ||
+            e.offsetHeight > window.innerHeight) && i >= 0) {
+            e.style.fontSize = (i -= 4) + 'px';
+        }
+        e.style.marginTop = ((window.innerHeight - e.offsetHeight) / 2) + 'px';
+        if (window.location.hash !== n) window.location.hash = n;
+        document.title = e.textContent || e.innerText;
+    }
+    // document.onclick = function() { go(++big.current % (s.length)); };
+    function fwd() { go(Math.min(s.length - 1, ++big.current)); }
+    function rev() { go(Math.max(0, --big.current)); }
+    document.onkeydown = function(e) {
+        if (e.which === 39 || e.which === 34 || e.which === 40) fwd();
+        if (e.which === 37 || e.which === 33 || e.which === 38) rev();
+    };
+    document.ontouchstart = function(e) {
+        var x0 = e.changedTouches[0].pageX;
+        document.ontouchend = function(e) {
+            var x1 = e.changedTouches[0].pageX;
+            if (x1 - x0 < 0) fwd();
+            if (x1 - x0 > 0) rev();
+        };
+    };
+    function parse_hash() {
+        return Math.max(Math.min(s.length - 1,
+            parseInt(window.location.hash.substring(1), 10)), 0);
+    }
+    if (window.location.hash) big.current = parse_hash() || big.current;
+    window.onhashchange = function() {
+        var c = parse_hash();
+        if (c !== big.current) go(c);
+    };
+    go(big.current);
+};
+</script></head><body>
+<div>
+<h1>ClojureScript</h1>
+<blockquote>
+<p>a dialect of the Clojure programming language that compiles to JavaScript - ClojureScript Up and Running (O'Reilly Media).</p>
+</blockquote>
+</div>
+<div>
+<h2>What's Clojure?</h2>
+<blockquote>
+<p>Clojure is a dialect of the Lisp programming language created by Rich Hickey. Clojure is a general-purpose programming language with an emphasis on functional programming. - https://en.wikipedia.org/wiki/Clojure</p>
+</blockquote>
+</div>
+<div>
+<h2>What's Lisp?</h2>
+<blockquote>
+<p>Lisp (historically, LISP) is a family of computer programming languages with a long history and a distinctive, fully parenthesized Polish prefix notation. - https://en.wikipedia.org/wiki/Lisp_(programming_language)</p>
+</blockquote>
+</div>
+<div>
+<h3>Fully parenthesized Polish prefix notation!</h3>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [links
+        [{<span class="kw">:title</span> <span class="st">&quot;a&quot;</span> <span class="kw">:tags</span> [<span class="st">&quot;cljs&quot;</span>]}
+        {<span class="kw">:title</span> <span class="st">&quot;b&quot;</span> <span class="kw">:tags</span> [<span class="st">&quot;cljs&quot;</span> <span class="st">&quot;js&quot;</span>]}
+        {<span class="kw">:title</span> <span class="st">&quot;c&quot;</span> <span class="kw">:tags</span> [<span class="st">&quot;js&quot;</span>]}]]
+    (<span class="kw">filter</span> #(<span class="kw">some</span> (<span class="kw">partial</span> <span class="kw">=</span> <span class="st">&quot;cljs&quot;</span>) (<span class="kw">:tags</span> %)) links))
+<span class="co">;=&gt; ({:title &quot;a&quot;, :tags [&quot;cljs&quot;]} {:title &quot;b&quot;, :tags [&quot;cljs&quot; &quot;js&quot;]})</span></code></pre>
+</div>
+<div>
+<h3>Homoiconicity!</h3>
+<blockquote>
+<p>...allows all code in the language to be accessed and transformed as data, using the same representation - https://en.wikipedia.org/wiki/Homoiconicity</p>
+</blockquote>
+<ul>
+<li>Code as data</li>
+<li>Facilitates powerful macros that transform code as data</li>
+</ul>
+</div>
+<div>
+<h2>Shiny Clojure(Script) features!</h2>
+</div>
+<div>
+<h3>Immutable data structures</h3>
+<ul>
+<li><code>lists</code>, <code>vectors</code>, <code>sets</code>, and <code>hash-maps</code> are immutable</li>
+<li>Functions that update them return whole new copies</li>
+<li>Eliminates a whole class of bugs caused by mutation of objects</li>
+<li><p>Deep equality is the default:</p>
+<p><code>(= [1 2 3] [1 2 3]) ;=&gt; true</code></p></li>
+</ul>
+</div>
+<div>
+<h3>Practical functional purity</h3>
+<blockquote>
+<p>Clojure wants you to write functions that accept values, and return values, without changing anything on the outside. - <a href="http://adambard.com/blog/ten-reasons-to-use-clojure/">http://adambard.com/blog/ten-reasons-to-use-clojure/</a></p>
+</blockquote>
+<ul>
+<li>Pure functions perform calculations and transform data</li>
+<li>Easy to reason about and hence test and debug</li>
+<li>But Clojure is practical &amp; recognises useful programs need to perform side effects</li>
+</ul>
+</div>
+<div>
+<h3>TODO</h3>
+<ul>
+<li>Google Closure
+<ul>
+<li>ClojureScript modules are Closure modules</li>
+<li>Compilation to JavaScript uses Closure Compiler
+<ul>
+<li>Dead code elimination allows use of large libraries</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3>React</h3>
+<ul>
+<li>Wide interest in ClojureScript community</li>
+<li>Top down rendering works well with functions</li>
+<li>Om, Reagent,</li>
+</ul>
+</div>
+<div>
+<h2>Show me the code!</h2>
+<ul>
+<li><a href="http://himera.herokuapp.com/synonym.html">JavaScript vs ClojureScript</a></li>
+<li><a href="https://github.com/walkermatt/hungry-horris/">Hungry Horris</a></li>
+<li><a href="https://github.com/walkermatt/links/">Links</a></li>
+</ul>
+</div>
+<div>
+<h2>Dev tools</h2>
+<h3><a href="https://github.com/clojure/clojurescript/wiki/Quick-Start">ClojureScript Quick Start</a></h3>
+<ul>
+<li>Bare bones walk through with minimal dependencies</li>
+<li>Compile <code>.cljs</code> to <code>.js</code> for browser and Node</li>
+<li>Auto-build and browser and Node REPL</li>
+</ul>
+</div>
+<div>
+<h3>Build tools</h3>
+<h4><a href="http://leiningen.org/">Leiningen</a></h4>
+<blockquote>
+<p>for automating Clojure projects without setting your hair on fire</p>
+</blockquote>
+<blockquote>
+<p>...a focus on project automation and declarative configuration</p>
+</blockquote>
+<ul>
+<li>Widely used &amp; mature with extensive plugin eco-system</li>
+<li>Declarative</li>
+</ul>
+</div>
+<div>
+<h4><a href="http://boot-clj.com/">Boot</a></h4>
+<blockquote>
+<p>Builds are programs. Let's start treating them that way.</p>
+</blockquote>
+<ul>
+<li>Define builds as data traformations in Clojure code</li>
+</ul>
+</div>
+<div>
+<h2>Further reading</h2>
+<ul>
+<li><a href="http://clojurescriptkoans.com/">Koans</a></li>
+<li><a href="https://www.niwi.nz/cljs-workshop/">Tutorial</a></li>
+<li><a href="http://www.braveclojure.com/">Clojure for the Brave and True</a></li>
+</ul>
+</div>
+<div>
+<h2>Thanks</h2>
+<a href="https://twitter.com/_walkermatt">https://twitter.com/_walkermatt</a> <a href="https://github.com/walkermatt">https://github.com/walkermatt</a>
+</div>
+</body>
