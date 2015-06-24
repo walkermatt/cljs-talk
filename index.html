@@ -185,6 +185,22 @@ window.onload = function() {
 </ul>
 </div>
 <div>
+<h3>JavaScript Interop</h3>
+<ul>
+<li>String, Number, Date, Regex types are JS types</li>
+<li><code>js</code> namespace provides access to global JS objects</li>
+<li><p>Syntax for accessing JS properties, calling functions and creating instances</p>
+<pre class="ClojureScript"><code>; Property access
+(.-length &quot;Hello&quot;)
+
+; Call function
+(.log js/console &quot;Hi!&quot;)
+
+; Create instance
+(js/Date.)</code></pre></li>
+</ul>
+</div>
+<div>
 <h3>Google Closure</h3>
 <ul>
 <li>ClojureScript modules are Closure modules</li>

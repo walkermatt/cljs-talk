@@ -63,6 +63,25 @@
 
 ----
 
+### JavaScript Interop
+
+* String, Number, Date, Regex types are JS types
+* `js` namespace provides access to global JS objects
+* Syntax for accessing JS properties, calling functions and creating instances
+
+    ```ClojureScript
+    ; Property access
+    (.-length "Hello")
+
+    ; Call function
+    (.log js/console "Hi!")
+
+    ; Create instance
+    (js/Date.)
+    ```
+
+----
+
 ### Google Closure
 
 * ClojureScript modules are Closure modules
