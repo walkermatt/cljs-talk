@@ -46,16 +46,42 @@
 
 * `lists`, `vectors`, `sets`, and `hash-maps` are immutable
 * Functions that update them return whole new copies
-* Eliminates a whole class of bugs caused by mutation of objects
+* Eliminates a whole class of bugs caused by mutation of objects ([such as this](http://ol3-dev.narkive.com/21W2d242/possible-to-mutate-view-s-center))
 * Deep equality is the default:
 
-    `(= [1 2 3] [1 2 3]) ;=> true`
+    (= [1 2 3] [1 2 3])
+    ;;=> true
+
+----
+
+### Functions!
+
+* Core library provides a wealth of pure functions for transforming data
+* Lisp's are good at processing lists :-)
+* Simple syntax, but a large number of functions to learn
+
+----
+
+### Functions!
+
+Classic list operations:
+
+    (map inc [1 2 3 4 5])
+    ;;=> (2 3 4 5 6)
+
+    (reduce + [1 2 3 4 5])
+    ;;=> 15
+
+    (filter even? (range 10))
+    ;;=> (0 2 4 6 8)
+
+Plus many more: [sequence functions](http://clojure.org/sequences).
 
 ----
 
 ### Practical functional purity
 
-> Clojure wants you to write functions that accept values, and return values, without changing anything on the outside. - [http://adambard.com/blog/ten-reasons-to-use-clojure/](http://adambard.com/blog/ten-reasons-to-use-clojure/)
+> Clojure wants you to write functions that accept values, and return values, without changing anything on the outside. - http://adambard.com/blog/ten-reasons-to-use-clojure/
 
 * Pure functions perform calculations and transform data
 * Easy to reason about and hence test and debug
@@ -139,6 +165,7 @@
 
 * [Koans](http://clojurescriptkoans.com/)
 * [Tutorial](https://www.niwi.nz/cljs-workshop/)
+* [Grimoire - Community Clojure Documentation](http://conj.io/)
 * [Clojure for the Brave and True](http://www.braveclojure.com/)
 
 ----
